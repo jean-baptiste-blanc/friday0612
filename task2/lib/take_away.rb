@@ -1,5 +1,7 @@
-require 'mail'
+require_relative '../lib/mail'
 class TakeAway
+
+	include SendMail
 
 	DISHES = { "Burger" => 10,
 					 "French Fries"  => 3,
@@ -15,7 +17,7 @@ class TakeAway
 
 	def register_order(order,expected_price)
 			order_error unless check_order_price?(order,expected_price)
-			send_text("Thank you !Your order was placed and will be delivered before #{in_an_hour}") 
+			send_email("Thank you !Your order was placed and will be delivered before #{in_an_hour}") 
 	end
 
 	def order_error
@@ -30,8 +32,3 @@ class TakeAway
 
 
 end
-
-
-take_away =TakeAway.new
-
-take_away.send_email("blah")
