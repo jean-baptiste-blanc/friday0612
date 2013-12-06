@@ -4,7 +4,7 @@ describe TakeAway do
 	let(:order){['Burger','French Fries']}
 
 	it "TakeAway should have a list of dishes" do
-		expect(take_away.dishes).to be_a_kind_of(Hash)
+		expect(TakeAway::DISHES).to be_a_kind_of(Hash)
 	end
 
 	it "TakeAway should have a method better inject" do
