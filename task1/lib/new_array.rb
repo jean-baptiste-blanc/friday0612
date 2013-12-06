@@ -1,7 +1,6 @@
 class Array
 
 	def better_inject(initial = nil)
-		array = []
 		result = 0
 		if !initial.nil?
 			result = initial
@@ -13,8 +12,19 @@ class Array
 		result
 	end
 
+	def better_inject_recursion(initial = nil,n=nil,&block)
+		result = 0
+		n ||= 0
+		return result if n == self.length
+		current_element = initial.nil? ? self[n] : initial
+		n+=1
+		result = yield(better_inject_recursion(nil,n,&block),current_element)
+		end
 end
 
 
-puts [1,2,3,4].better_inject(0){|result,element| result - element}
-puts [1,2,3,4].inject(0){|result,element| result - element}
+array = [1,2,3,4]
+
+ puts array.inject{|result,element| result + element}
+ puts array.better_inject_recursion{|result,element| result + element}
+ 
