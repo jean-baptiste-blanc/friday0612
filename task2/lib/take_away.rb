@@ -1,4 +1,5 @@
-require_relative '../lib/mail'
+require_relative '../lib/send_mail'
+
 class TakeAway
 
 	include SendMail
@@ -28,7 +29,9 @@ class TakeAway
 		order.inject(0){|price,dish| price += DISHES[dish[0]] * dish[1] } == expected_price
 	end
 
-	
-
-
 end
+
+
+# take_away = TakeAway.new
+
+# take_away.send_email("Hello")
