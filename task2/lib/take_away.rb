@@ -1,8 +1,5 @@
-require 'twilio-ruby'
-
+require 'mail'
 class TakeAway
-
-	@client = Twilio::REST::Client.new ENV['TWILIO_ACCOUNT_SID'], ENV['TWILIO_TOKEN']
 
 	DISHES = { "Burger" => 10,
 					 "French Fries"  => 3,
@@ -10,16 +7,31 @@ class TakeAway
 					 "steack" => 14
 					}
 
-	# def dishes
-	# 	DISHES
-	# end
+	def in_an_hour 
+    time = Time.new
+    time = time + (60*60)
+    time.strftime('%H:%M')
+  end
 
-	def check_order_price(order,expected_price)
-		sum = 0
-		order.each{|dish| sum += DISHES[dish]} == expected_price ? send_text : raise 
+	def register_order(order,expected_price)
+			order_error unless check_order_price?(order,expected_price)
+			send_text("Thank you !Your order was placed and will be delivered before #{in_an_hour}") 
 	end
 
-	def send_text
-		 @client.account.sms.messages.create(:body => "Thank you !Your order was placed and will be delivered before 18:52",:to => "+447547358854",:from => "+14158141829")
+	def order_error
+			raise "something went wrong with your order."
 	end
+
+	def check_order_price?(order,expected_price)
+		order.inject(0){|price,dish| price += DISHES[dish[0]] * dish[1] } == expected_price
+	end
+
+	
+
+
 end
+
+
+take_away =TakeAway.new
+
+take_away.send_email("blah")
