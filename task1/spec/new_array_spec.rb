@@ -15,7 +15,11 @@ describe Array do
  	end
 
  	it "better_inject should take a block" do
- 		array.better_inject("foo"){1}
+ 		array.better_inject(0){1}
  		expect { |b| array.better_inject("foo", &b) }.to yield_with_no_args
+ 	end
+
+ 	it "should return the same result as inject with an initial value" do
+ 		expect([1,2,3,4].better_inject(0){|result,element| result + element} == [1,2,3,4].inject(0){|result,element| result + element}).to be_true
  	end
 end
