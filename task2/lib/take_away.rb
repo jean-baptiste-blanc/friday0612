@@ -10,10 +10,14 @@ class TakeAway
 	# 	DISHES
 	# end
 
-	def check_order_price?(order,expected_price)
-		sum=0
-		order.each{|dish| sum += DISHES[dish]}
-		sum == expected_price
+	def check_order_price(order,expected_price)
+		sum = 0
+		order.each{|dish| sum += DISHES[dish]} == expected_price ? send_text : raise 
+	end
+
+	def send_text
+
+
 	end
 
 
