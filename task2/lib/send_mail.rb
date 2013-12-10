@@ -1,4 +1,4 @@
-	require 'mail'
+require 'mail'
 
 module SendMail
 
@@ -11,17 +11,17 @@ module SendMail
             :authentication       => 'plain',
             :enable_starttls_auto => true  }
           
-	Mail.defaults do
-	   delivery_method :smtp, options
- end
+  Mail.defaults do
+    delivery_method :smtp, options
+  end
 
 	def send_email(message)
-				mail = Mail.deliver do
-		  	from    ENV["EMAIL"]
-		  	to      'jbblanc@gmail.com'
-		  	subject 'Your order'
-		  	body    message
-				end
+		mail = Mail.deliver do
+      from    ENV["EMAIL"]
+      to      'jbblanc@gmail.com'
+      subject 'Your order'
+      body    message
+		end
 	end
 
 end
