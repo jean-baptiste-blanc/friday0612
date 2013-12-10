@@ -6,12 +6,23 @@ class Array
 			result = initial
   	else
 			result = self[0]
+			# I wrote a test that fails because of this line			
 			self.shift
 		end
 		self.each {|element| result = yield(result,element)}
 		result
 	end
 
+	# the recursive implementation should have the same signature
+	# you can have another private method that has a different signature
+	# for example:
+	#   def better_inject_recursion(initial = nil, &block)
+	#     better_inject_recursion_array(self.dup, initial, &block)
+	#   end	
+	#   private
+	#   instead of passing n, you can pass a smaller array each time, it'll be cleaner
+	#   def better_inject_recursion_array(array, initial)
+	#     ...
 	def better_inject_recursion(initial = nil,n=nil,&block)
 		result = 0
 		n ||= 0
@@ -23,8 +34,4 @@ class Array
 end
 
 
-array = [1,2,3,4]
-
- puts array.inject{|result,element| result + element}
- puts array.better_inject_recursion{|result,element| result + element}
- 
+# Don't print stuff in the code :) Write tests instead 
